@@ -2,10 +2,28 @@
 version: "3"
 services:
 
-  mongo:
-    build: mongo
+  # mongo:
+  #   build: mongo
+  #   ports:
+  #   - "27017:27017"
+  #   volumes:
+  #   - ./mongo/db:/data/db
+  #   - ./mongo/sh:/data/sh
+  #   environment:
+  #     DB_NAME: garage
+
+  react:
+    build: react
     ports:
-    - "27017:27017"
+    - "82:3000"
     volumes:
-    - ./mongo/db:/data/db
-    - ./mongo/sh:/data/sh
+    - .:/app
+    # command:
+
+  strapi:
+    build: strapi
+    ports:
+    - "81:1337"
+    volumes:
+    - .:/app
+    command: strapi start

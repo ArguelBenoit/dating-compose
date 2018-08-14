@@ -1,5 +1,5 @@
 #!/bin/bash
 
-tar -zxvf garage.tar.gz
-mongorestore --db garage garage
-rm -rf garage
+tar -zxvf $DB_NAME.tar.gz
+mongorestore --db $DB_NAME $DB_NAME
+rm -rf $DB_NAME
