@@ -1,6 +1,8 @@
 import '../assets/less/index.less';
 import React from 'react';
-import LinkTest from '../assets/components/linkTest';
+import MyHead from '../assets/components/head';
+import SideBar from '../assets/components/sideBar';
+import RightContent from '../assets/components/rightContent';
 
 
 export default class extends React.Component {
@@ -12,8 +14,10 @@ export default class extends React.Component {
   }
   render () {
     return <div>
-      <div className="sideBar">
-        <LinkTest />
+      <MyHead title="Garage" />
+      <div className="flexContainer">
+        <SideBar />
+        <RightContent />
       </div>
     </div>;
   }

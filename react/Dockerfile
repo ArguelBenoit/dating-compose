@@ -1,11 +1,8 @@
-FROM node:8
-
-RUN npm i -g strapi
+FROM node:8.0.0
 
 RUN mkdir /app
-
 WORKDIR /app
 
 ADD . /app
 
-RUN npm i
+RUN npm install

@@ -2,28 +2,42 @@
 version: "3"
 services:
 
-  # mongo:
-  #   build: mongo
-  #   ports:
-  #   - "27017:27017"
-  #   volumes:
-  #   - ./mongo/db:/data/db
-  #   - ./mongo/sh:/data/sh
-  #   environment:
-  #     DB_NAME: garage
-
-  react:
-    build: react
+  mongo:
+    build: mongo
     ports:
-    - "82:3000"
+      - 27017:27017
+    restart: always
     volumes:
-    - .:/app
-    # command:
+      - ./mongo/db:/data/db
+      - ./mongo/sh:/data/sh
+    environment:
+      - MONGO_INITDB_DATABASE=strapi
+
+  # react:
+  #   build: react
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./react:/app
+  #   command: npm run dev
+  #   # depends_on:
+  #   #   - strapi
 
   strapi:
     build: strapi
+    environment:
+      - APP_NAME=strapi
+      - DATABASE_CLIENT=mongo
+      - DATABASE_HOST=mongo
+      - DATABASE_PORT=27017
+      - DATABASE_NAME=strapi
+      - HOST=localhost
+      - DATABASE_USERNAME=
+      - DATABASE_PASSWORD=
     ports:
-    - "81:1337"
+      - 1337:1337
     volumes:
-    - .:/app
-    command: strapi start
+      - ./strapi/app:/usr/src/api/strapi-app
+    depends_on:
+      - mongo
+    restart: always
