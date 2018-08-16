@@ -33,12 +33,12 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=strapi
 
-  # react:
-  #   build: react
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./react:/app
-  #   command: npm run dev
-  #   # depends_on:
-  #   #   - strapi
+  react:
+    build: react
+    ports:
+      - 3000:3000
+    volumes:
+      - ./react:/app
+    command: npm run dev
+    depends_on:
+      - strapi
