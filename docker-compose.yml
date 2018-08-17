@@ -3,6 +3,27 @@ version: "3"
 
 services:
 
+  nginx:
+    image: nginx
+    volumes:
+    - ./nginx:/etc/nginx/sites-available
+    ports:
+    - 81:81
+    - 82:82
+    depends_on:
+    - react
+    - strapi
+
+  react:
+    build: react
+    ports:
+      - 3000:3000
+    volumes:
+      - ./react:/app
+    command: npm run dev
+    depends_on:
+      - strapi
+
   strapi:
     build: strapi
     environment:
@@ -12,15 +33,13 @@ services:
       - HOST=localhost
       - DATABASE_PORT=27017
       - DATABASE_NAME=strapi
-      # - DATABASE_USERNAME=
-      # - DATABASE_PASSWORD=
     ports:
       - 1337:1337
+    restart: always
     volumes:
       - ./strapi/app:/usr/src/api/strapi-app
     depends_on:
       - mongo
-    restart: always
 
   mongo:
     build: mongo
@@ -32,13 +51,3 @@ services:
       - ./mongo/sh:/data/sh
     environment:
       - MONGO_INITDB_DATABASE=strapi
-
-  react:
-    build: react
-    ports:
-      - 3000:3000
-    volumes:
-      - ./react:/app
-    command: npm run dev
-    depends_on:
-      - strapi
