@@ -25,7 +25,7 @@ services:
       - 1337:1337
     restart: always
     volumes:
-      - ./strapi/app:/usr/src/api/strapi-app
+      - ./strapi/app:/usr/src/api/strapi
     depends_on:
       - mongo
 
