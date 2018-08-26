@@ -11,7 +11,7 @@ trap _stopStrapi SIGTERM SIGINT
 
 cd /usr/src/api
 
-APP_NAME=${APP_NAME:-strapi-app}
+APP_NAME=${APP_NAME:-strapi}
 DATABASE_CLIENT=${DATABASE_CLIENT:-mongo}
 DATABASE_HOST=${DATABASE_HOST:-localhost}
 DATABASE_PORT=${DATABASE_PORT:-27017}
@@ -26,6 +26,7 @@ then
 fi
 
 cd $APP_NAME
+npm install
 strapi start &
 
 strapiPID=$!

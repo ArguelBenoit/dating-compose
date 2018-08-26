@@ -2,20 +2,20 @@ version: "3"
 
 services:
 
-  react:
-    build: react
-    ports:
-      - 3000:3000
-    volumes:
-      - ./react:/app
-    command: npm run dev
-    depends_on:
-      - strapi
+  # react:
+  #   build: react
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./react:/app
+  #   command: npm run dev
+  #   depends_on:
+  #     - strapi
 
   strapi:
     build: strapi
     environment:
-      - APP_NAME=strapi-app
+      - APP_NAME=strapi
       - DATABASE_CLIENT=mongo
       - DATABASE_HOST=mongo
       - HOST=localhost
