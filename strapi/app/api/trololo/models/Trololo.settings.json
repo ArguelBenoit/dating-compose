@@ -1,0 +1,16 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "trololo",
+    "description": "trololo"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "hahahahahah": {
+      "type": "string"
+    }
+  }
+}

@@ -2,15 +2,15 @@ version: "3"
 
 services:
 
-  # react:
-  #   build: react
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./react:/app
-  #   command: npm run dev
-  #   depends_on:
-  #     - strapi
+  react:
+    build: react
+    ports:
+      - 3000:3000
+    volumes:
+      - ./react:/app
+    command: npm run dev
+    depends_on:
+      - strapi
 
   strapi:
     build: strapi
@@ -23,11 +23,11 @@ services:
       - DATABASE_NAME=strapi
     ports:
       - 1337:1337
-    restart: always
     volumes:
       - ./strapi/app:/usr/src/api/strapi
     depends_on:
       - mongo
+    restart: always
 
   mongo:
     build: mongo
