@@ -1,8 +1,7 @@
-FROM node:8.0.0
+FROM node:8
 
-RUN mkdir /app
-WORKDIR /app
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
 
-ADD . /app
-
-RUN npm install
+COPY . /usr/src/app
+RUN npm install --silent

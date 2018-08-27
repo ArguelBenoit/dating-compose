@@ -4,13 +4,14 @@ services:
 
   react:
     build: react
+    working_dir: /usr/src/app
+    volumes:
+      - ./react:/usr/src/app
     ports:
       - 3000:3000
-    volumes:
-      - ./react:/app
     command: npm run dev
     depends_on:
-      - strapi
+    - strapi
 
   strapi:
     build: strapi
