@@ -1,7 +1,11 @@
 FROM node:8
 
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir /usr/react
+WORKDIR /usr/react
 
-COPY . /usr/src/app
-RUN npm install --silent
+COPY . .
+
+
+RUN npm install
+
+CMD npm run dev
