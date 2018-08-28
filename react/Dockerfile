@@ -1,11 +1,11 @@
-FROM node:8
+FROM node:10
 
-RUN mkdir /usr/react
-WORKDIR /usr/react
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
 
-COPY . .
-
-
+COPY package.json /usr/app/
 RUN npm install
 
-CMD npm run dev
+COPY . /usr/app
+
+CMD ["npm", "run", "dev"]

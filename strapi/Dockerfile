@@ -1,16 +1,17 @@
-FROM node:9.11.1-alpine
+FROM node:10
 
-WORKDIR /usr/src/api
+RUN mkdir -p /usr/src/api/strapi
+WORKDIR /usr/src/api/strapi
 
+RUN npm i npm@latest -g
 RUN npm install -g strapi@3.0.0-alpha.13.0.1
 
-COPY strapi.sh ./
-RUN chmod +x ./strapi.sh
+COPY ./app /usr/src/api/strapi
 
-EXPOSE 1337
+RUN rm -f package-lock.json
+RUN rm -r node_modules
+RUN npm install
 
-COPY healthcheck.js ./
-HEALTHCHECK --interval=15s --timeout=5s --start-period=30s \
-      CMD node /usr/src/api/healthcheck.js
+RUN npm run postinstall
 
-CMD ["./strapi.sh"]
+CMD ["strapi", "start"]
