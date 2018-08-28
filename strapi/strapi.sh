@@ -2,7 +2,9 @@
 
 cd /usr/src/api/strapi
 
-npm install
-npm run postinstall
+if [ ! -d "/node_modules" ]; then
+  npm install
+  npm run postinstall
+fi
 
 strapi start
