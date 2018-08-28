@@ -1,14 +1,12 @@
 FROM node:10
 
-RUN mkdir -p /usr/src/api/strapi
-WORKDIR /usr/src/api/strapi
+WORKDIR /usr/src/api
 
-RUN npm install -g strapi@3.0.0-alpha.13.0.1
+RUN npm install -g strapi@3.0.0-alpha.13.1
 
-COPY ./app /usr/src/api/strapi
+COPY strapi.sh ./
+RUN chmod +x ./strapi.sh
 
-RUN npm install
+EXPOSE 1337
 
-RUN npm run postinstall
-
-CMD ["strapi", "start"]
+CMD ["./strapi.sh"]
