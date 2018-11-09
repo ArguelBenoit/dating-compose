@@ -1,7 +1,7 @@
 {
   "name": "ui-react",
   "version": "1.0.0",
-  "description": "react user interface of generic garage website",
+  "description": "react user interface of dating site",
   "main": "index.js",
   "scripts": {
     "dev": "next",
