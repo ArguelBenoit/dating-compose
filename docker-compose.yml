@@ -8,25 +8,6 @@ services:
       - ./react:/usr/react
     ports:
       - 3000:3000
-    depends_on:
-    - strapi
-
-  strapi:
-    build: strapi
-    environment:
-      - APP_NAME=strapi
-      - DATABASE_CLIENT=mongo
-      - DATABASE_HOST=mongo
-      - HOST=localhost
-      - DATABASE_PORT=27017
-      - DATABASE_NAME=strapi
-    ports:
-      - 1337:1337
-    volumes:
-      - ./strapi/app:/usr/src/api/strapi
-    depends_on:
-      - mongo
-    restart: always
 
   mongo:
     build: mongo
@@ -37,16 +18,27 @@ services:
       - ./mongo/db:/data/db
       - ./mongo/sh:/data/sh
     environment:
-      - MONGO_INITDB_DATABASE=strapi
-      - DATABASE_NAME=strapi
+      - MONGO_INITDB_DATABASE=dating
+      - DATABASE_NAME=dating
+
+  api:
+    build: api
+    ports:
+      - 3333:3333
+    volumes:
+      - ./api/app:/usr/src/api/api
+    depends_on:
+      - mongo
+    restart: always
+    # environment:
+    #   - APP_NAME=api
+    #   - DATABASE_CLIENT=mongo
+    #   - DATABASE_HOST=mongo
+    #   - HOST=localhost
+    #   - DATABASE_PORT=27017
+    #   - DATABASE_NAME=strapi
 
   # nginx:
   #   build: nginx
   #   volumes:
-  #     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-  #   ports:
-  #     - 81:81
-  #     - 82:82
-  #   depends_on:
-  #     - react
-  #     - strapi
+  #     - .///

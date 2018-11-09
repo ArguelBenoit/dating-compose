@@ -1,7 +1,7 @@
 {
   "name": "ui-react",
   "version": "1.0.0",
-  "description": "react user interface of dating site",
+  "description": "react user interface of white dating web-site",
   "main": "index.js",
   "scripts": {
     "dev": "next",
