@@ -1,5 +1,5 @@
 import React from 'react';
-import '../less/rightContent.less';
+import '../css/rightContent.less';
 
 export default props => {
   return <div className="rightContent">

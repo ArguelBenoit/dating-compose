@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import '../less/sideBar.less';
+import '../css/sideBar.less';
 
 
 export default () => {

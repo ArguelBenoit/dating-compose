@@ -2,13 +2,6 @@ version: "3"
 
 services:
 
-  react:
-    build: react
-    volumes:
-      - ./react:/usr/react
-    ports:
-      - 3000:3000
-
   mongo:
     build: mongo
     ports:
@@ -19,26 +12,27 @@ services:
       - ./mongo/sh:/data/sh
     environment:
       - MONGO_INITDB_DATABASE=dating
-      - DATABASE_NAME=dating
+      - DB_NAME=dating
 
   api:
-    build: api
+    image: node:10.0.0
     ports:
       - 3333:3333
+    working_dir: /usr/api
     volumes:
-      - ./api/app:/usr/src/api/api
+      - ./api:/usr/api
     depends_on:
       - mongo
     restart: always
-    # environment:
-    #   - APP_NAME=api
-    #   - DATABASE_CLIENT=mongo
-    #   - DATABASE_HOST=mongo
-    #   - HOST=localhost
-    #   - DATABASE_PORT=27017
-    #   - DATABASE_NAME=strapi
+    command: npm run launch
 
-  # nginx:
-  #   build: nginx
-  #   volumes:
-  #     - .///
+  react:
+    image: node:10.0.0
+    ports:
+      - 3000:3000
+    working_dir: /usr/react
+    volumes:
+      - ./react:/usr/react
+    depends_on:
+      - api
+    command: npm run launch
