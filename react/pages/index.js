@@ -14,7 +14,7 @@ export default class extends React.Component {
   }
   render () {
     return <div>
-      <MyHead title="Garage" />
+      <MyHead title="dating" />
       <div className="flexContainer">
         <SideBar />
         <RightContent />

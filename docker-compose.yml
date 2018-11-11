@@ -17,7 +17,7 @@ services:
   api:
     image: node:10.0.0
     ports:
-      - 3333:3333
+      - 3333:3000
     working_dir: /usr/api
     volumes:
       - ./api:/usr/api

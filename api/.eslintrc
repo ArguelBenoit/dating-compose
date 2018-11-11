@@ -1,4 +1,3 @@
-
 {
-  "extends": "benoitarguel"
+  "extends": "loopback"
 }
