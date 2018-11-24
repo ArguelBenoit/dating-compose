@@ -11,6 +11,40 @@
     background: #fff;
     border-radius: 6px;
     box-shadow: 0 0 10px #ddd;
+    &.login {
+      max-width: 300px;
+    }
+    &.subscribe {
+      max-width: 340px;
+    }
+    &.animationOut {
+      animation-duration: 500ms;
+      animation-name: slideOut;
+      @keyframes slideOut {
+        from {
+          transform: translate(0px, 65px);
+          opacity: 1;
+        }
+        to {
+          transform: translate(100px, 65px);
+          opacity: 0;
+        }
+      }
+    }
+    &.animationIn {
+      animation-duration: 500ms;
+      animation-name: slidein;
+      @keyframes slidein {
+        from {
+          transform: translate(-100px, 65px);
+          opacity: 0;
+        }
+        to {
+          transform: translate(0px, 65px);
+          opacity: 1;
+        }
+      }
+    }
     form {
       margin-bottom: 15px;
       input {
@@ -18,4 +52,3 @@
       }
     }
   }
-}
