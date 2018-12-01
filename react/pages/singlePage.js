@@ -1,8 +1,8 @@
-import '../assets/css/index.less';
+import '../css/index.less';
 import React from 'react';
-import MyHead from '../assets/components/head';
-import SideBar from '../assets/components/sideBar';
-import RightContent from '../assets/components/rightContent';
+import MyHead from '../components/head';
+import SideBar from '../components/sideBar';
+import RightContent from '../components/rightContent';
 
 
 export default props => {

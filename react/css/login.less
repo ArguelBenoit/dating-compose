@@ -1,0 +1,33 @@
+
+.container-page {
+  padding: 0 20px;
+  background: #f5f5f5;
+  min-height: 100vh;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  h1 { font-size: 4rem; }
+  .container-container-form {
+    padding: 90px 0 20px 0;
+    perspective: 1000px;
+    .container-form {
+      padding: 25px;
+      max-width: 300px;
+      margin: auto;
+      background: #fff;
+      border-radius: 2px;
+      box-shadow: 0 0 2px #888;
+      form {
+        margin-bottom: 15px;
+        input { width: 100%; }
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width: 480px) {
+  .container-page .container-container-form {
+    padding: 20px 0;
+  }
+}

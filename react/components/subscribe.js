@@ -76,10 +76,11 @@ export default class extends React.Component {
         </div>
         <div className="row">
           <div className="columns six">
-            <select value={this.state.sexe} onChange={this.changeValueSexe}>
-              <option value="Man"/>
-              <option value="Woman"/>
-              <option value="Other"/>
+            <select className="u-full-width" value={this.state.sexe} onChange={this.changeValueSexe}>
+              <option value="Sexe">Sexe</option>
+              <option value="Man">Man</option>
+              <option value="Woman">Woman</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div className="columns six">

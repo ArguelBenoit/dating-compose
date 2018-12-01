@@ -1,14 +1,11 @@
-import '../assets/css/index.less';
+import '../css/index.less';
 import React from 'react';
-import MyHead from '../assets/components/head';
-import SideBar from '../assets/components/sideBar';
-import RightContent from '../assets/components/rightContent';
+import MyHead from '../components/head';
+import SideBar from '../components/sideBar';
+import RightContent from '../components/rightContent';
 
 
 export default class extends React.Component {
-  // static getInitialProps () {
-  //   return {ex: 'ex1', ex2: 'ex2'};
-  // }
   constructor (props) {
     super(props);
   }
