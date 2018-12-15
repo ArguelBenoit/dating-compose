@@ -12,35 +12,43 @@
 body, html {
   margin: 0 0;
   padding: 0 0;
-  min-height: 100vh;
+  min-height: 100%;
   font-family: 'Rubik', sans-serif;
-  a {
-    text-decoration: none;
+}
+
+a { text-decoration: none; }
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  border: 0px;
+  background: rgba(127, 127, 127, 0.15);
+  &:focus {
+    border: none;
   }
-  input[type="email"],
-  input[type="number"],
-  input[type="search"],
-  input[type="text"],
-  input[type="tel"],
-  input[type="url"],
-  input[type="password"],
-  textarea,
-  select {
-    border: 0px;
-    background: rgba(127, 127, 127, 0.15);
-    &:focus {
-      border: none;
-    }
+}
+
+input[type="submit"].button-primary {
+  margin-top: 12.5px;
+  transition-duration: 300ms;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 5px #ccc;
   }
-  input[type="submit"].button-primary {
-    margin-top: 12.5px;
-    transition-duration: 300ms;
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 5px #ccc;
-    }
-  }
+}
+
+.flexContainer {
+  display: flex;
+}
+
+@media only screen and (max-device-width: 600px) {
   .flexContainer {
-    display: flex;
+    display: block !important;
   }
 }
