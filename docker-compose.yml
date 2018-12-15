@@ -10,7 +10,7 @@ services:
       - 3000:3000
     depends_on:
     - strapi
-    
+
   # 15/12/2018
   # login ui strapi : benoit.arguel@gmail.com
   # password ui strapi : Scoopc12
@@ -38,7 +38,7 @@ services:
     restart: always
     volumes:
       - ./mongo/db:/data/db
-      - ./mongo/sh:/data/sh
+      - ./mongo/bin:/data/bin
     environment:
       - MONGO_INITDB_DATABASE=strapi
       - DATABASE_NAME=strapi
