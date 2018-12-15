@@ -10,7 +10,10 @@ services:
       - 3000:3000
     depends_on:
     - strapi
-
+    
+  # 15/12/2018
+  # login ui strapi : benoit.arguel@gmail.com
+  # password ui strapi : Scoopc12
   strapi:
     build: strapi
     environment:
