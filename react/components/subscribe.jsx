@@ -3,13 +3,7 @@ import React from 'react';
 export default class extends React.Component {
   constructor (props) {
     super(props);
-    this.changeValueEmail = this.changeValueEmail.bind(this);
-    this.changeValueLastName = this.changeValueLastName.bind(this);
-    this.changeValueFirstName = this.changeValueFirstName.bind(this);
-    this.changeValuePassword = this.changeValuePassword.bind(this);
-    this.changeValueSexe = this.changeValueSexe.bind(this);
-    this.changeValueDob = this.changeValueDob.bind(this);
-    this.changeValueCity = this.changeValueCity.bind(this);
+    this.changeValue = this.changeValue.bind(this);
     this.state = {
       email: '',
       lastName: '',
@@ -20,46 +14,10 @@ export default class extends React.Component {
       city: ''
     };
   }
-  changeValueEmail(event) {
+  changeValue(event, name) {
     let { value } = event.target;
     this.setState({
-      email: value
-    });
-  }
-  changeValueLastName(event) {
-    let { value } = event.target;
-    this.setState({
-      lastName: value
-    });
-  }
-  changeValueFirstName(event) {
-    let { value } = event.target;
-    this.setState({
-      firstName: value
-    });
-  }
-  changeValuePassword(event) {
-    let { value } = event.target;
-    this.setState({
-      password: value
-    });
-  }
-  changeValueSexe(event) {
-    let { value } = event.target;
-    this.setState({
-      sexe: value
-    });
-  }
-  changeValueDob(event) {
-    let { value } = event.target;
-    this.setState({
-      dob: value
-    });
-  }
-  changeValueCity(event) {
-    let { value } = event.target;
-    this.setState({
-      city: value
+      [name]: value
     });
   }
   render () {
@@ -68,15 +26,15 @@ export default class extends React.Component {
       <form action="onSubmit">
         <div className="row">
           <div className="columns six">
-            <input type="text" placeholder="Last name" value={this.state.lastName} onChange={this.changeValueLastName} />
+            <input type="text" placeholder="Last name" value={this.state.lastName} onChange={e => this.changeValue(e, 'lastName')} />
           </div>
           <div className="columns six">
-            <input type="text" placeholder="First name" value={this.state.firstName} onChange={this.changeValueFirstName} />
+            <input type="text" placeholder="First name" value={this.state.firstName} onChange={e => this.changeValue(e, 'firstName')} />
           </div>
         </div>
         <div className="row">
           <div className="columns six">
-            <select className="u-full-width" value={this.state.sexe} onChange={this.changeValueSexe}>
+            <select className="u-full-width" value={this.state.sexe} onChange={e => this.changeValue(e, 'sexe')}>
               <option value="Sexe">Sexe</option>
               <option value="Man">Man</option>
               <option value="Woman">Woman</option>
@@ -84,12 +42,12 @@ export default class extends React.Component {
             </select>
           </div>
           <div className="columns six">
-            <input type="text" placeholder="Date of birth" value={this.state.dob} onChange={this.changeValueDob}/>
+            <input type="text" placeholder="Date of birth" value={this.state.dob} onChange={e => this.changeValue(e, 'dob')}/>
           </div>
         </div>
-        <input type="text" placeholder="City"  value={this.state.city} onChange={this.changeValueCity}/>
-        <input type="email" placeholder="Email" value={this.state.email} onChange={this.changeValueEmail} />
-        <input type="password" placeholder="Password" value={this.state.password} onChange={this.changeValuePassword} />
+        <input type="text" placeholder="City"  value={this.state.city} onChange={e => this.changeValue(e, 'city')}/>
+        <input type="email" placeholder="Email" value={this.state.email} onChange={e => this.changeValue(e, 'email')} />
+        <input type="password" placeholder="Password" value={this.state.password} onChange={e => this.changeValue(e, 'password')}/>
         <input className="button-primary" type="submit" value="Submit" />
       </form>
     </div>;

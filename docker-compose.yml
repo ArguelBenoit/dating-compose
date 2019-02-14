@@ -2,34 +2,15 @@ version: "3"
 
 services:
 
-  react:
-    build: react
-    volumes:
-      - ./react:/usr/react
-    ports:
-      - 3000:3000
-    depends_on:
-    - strapi
-
-  # 15/12/2018
-  # login ui strapi : benoit.arguel@gmail.com
-  # password ui strapi : Scoopc12
-  strapi:
-    build: strapi
-    environment:
-      - APP_NAME=strapi
-      - DATABASE_CLIENT=mongo
-      - DATABASE_HOST=mongo
-      - HOST=localhost
-      - DATABASE_PORT=27017
-      - DATABASE_NAME=strapi
-    ports:
-      - 1337:1337
-    volumes:
-      - ./strapi/app:/usr/src/api/strapi
-    depends_on:
-      - mongo
-    restart: always
+  # it's more easy to run in localy the user interface
+  # react:
+  #   build: react
+  #   volumes:
+  #     - ./react:/usr/react
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #   - hapi
 
   mongo:
     build: mongo
@@ -39,9 +20,9 @@ services:
     volumes:
       - ./mongo/db:/data/db
       - ./mongo/bin:/data/bin
-    environment:
-      - MONGO_INITDB_DATABASE=strapi
-      - DATABASE_NAME=strapi
+    # environment:
+    #   - MONGO_INITDB_DATABASE=hapi
+    #   - DATABASE_NAME=hapi
 
   # nginx:
   #   build: nginx
