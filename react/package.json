@@ -1,15 +1,14 @@
 {
   "name": "ui-react",
-  "version": "1.0.0",
-  "description": "react user interface of white dating web-site",
+  "description": "User interface of white dating web-site with react.js",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "npm i && next",
     "build": "next build",
     "start": "next start",
     "launch": "npm i && next"
   },
-  "author": "",
+  "author": "Benoit Arguel",
   "license": "ISC",
   "dependencies": {
     "@zeit/next-less": "^0.3.0",

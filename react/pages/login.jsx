@@ -11,7 +11,7 @@ export default class extends React.Component {
     this.state = {
       mode: 'login',
       animationStyle: {
-        transitionDuration: '600ms',
+        transitionDuration: '300ms',
         transform: 'translateY(0px)',
         opacity: 1
       }
@@ -23,19 +23,21 @@ export default class extends React.Component {
   init() {
     this.setState({
       animationStyle: {
-        transitionDuration: '600ms',
+        transitionDuration: '300ms',
         transform: 'translateY(0px)',
         opacity: 1
       }
     });
   }
   switchMode(event) {
-    let { mode } = this.state;
+    let {
+      mode
+    } = this.state;
     event.preventDefault();
     // sortie du formulaire
     this.setState({
       animationStyle: {
-        transitionDuration: '600ms',
+        transitionDuration: '300ms',
         transform: 'translateY(20px)',
         opacity: 0
       }
@@ -50,17 +52,17 @@ export default class extends React.Component {
           opacity: 0
         }
       })
-    ,600);
+    ,300);
     // repositionnement du formulaire
     setTimeout(
       () => this.setState({
         animationStyle: {
-          transitionDuration: '600ms',
+          transitionDuration: '300ms',
           transform: 'translateY(0px)',
           opacity: 1
         }
       })
-    ,650);
+    ,350);
   }
   render () {
     const { mode, animationStyle } = this.state;

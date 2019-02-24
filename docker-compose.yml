@@ -2,15 +2,24 @@ version: "3"
 
 services:
 
-  # it's more easy to run in localy the user interface
-  # react:
-  #   build: react
-  #   volumes:
-  #     - ./react:/usr/react
-  #   ports:
-  #     - 3000:3000
-  #   depends_on:
-  #   - hapi
+  react:
+    image: node:10
+    working_dir: /app/react
+    volumes:
+      - ./react:/app/react
+    ports:
+      - 3000:3000
+    command: npm run dev
+    depends_on:
+    - hapi
+
+  hapi:
+    build: hapi
+    working_dir: /app/hapi
+    volumes:
+      - ./hapi:/app/hapi
+    ports:
+      - 8000:8000
 
   mongo:
     build: mongo
@@ -20,17 +29,17 @@ services:
     volumes:
       - ./mongo/db:/data/db
       - ./mongo/bin:/data/bin
-    # environment:
-    #   - MONGO_INITDB_DATABASE=hapi
-    #   - DATABASE_NAME=hapi
+    environment:
+      - MONGO_INITDB_DATABASE=hapi
+      - DATABASE_NAME=hapi
 
   # nginx:
   #   build: nginx
   #   volumes:
   #     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
   #   ports:
-  #     - 81:81
-  #     - 82:82
+  #     - 3000:3000
+  #     - 8000:8000
   #   depends_on:
   #     - react
   #     - strapi

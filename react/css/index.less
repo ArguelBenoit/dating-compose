@@ -8,7 +8,10 @@
 // * si on veut overider des règles de skeleton c'est toujours dans index.less
 // * priorité à la simplicité du code que aux détails d'animations qui rendent complexe le css
 
-// font google importer dans head: 'Arvo', 'Rubik'
+// font google importer dans head:
+// - Arvo (serif)
+// - Rubik (sans-serif)
+
 body, html {
   margin: 0 0;
   padding: 0 0;
@@ -38,8 +41,9 @@ input[type="submit"].button-primary {
   margin-top: 12.5px;
   transition-duration: 300ms;
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 5px #ccc;
+    transform: translateY(-1.5px);
+    border-bottom: solid 2px #007fa7;
+    // box-shadow: 0 0 5px #ccc;
   }
 }
 
