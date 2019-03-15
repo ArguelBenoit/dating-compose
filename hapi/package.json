@@ -1,27 +1,29 @@
 {
   "name": "api-hapi",
-  "description": "Api of white dating web-site with hapi.js",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "0.0.0",
+  "description": "API of white dating web-site with hapi.js",
+  "main": "server.js",
   "author": "Benoit Arguel",
   "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "boom": "^3.1.2",
+    "glob": "^7.0.0",
+    "hapi": "^13.0.0",
+    "hapi-auth-jwt": "^4.0.0",
+    "joi": "^8.0.4",
+    "joi-objectid": "^2.0.0",
+    "jsonwebtoken": "^5.7.0",
+    "mongoose": "^4.4.5"
+  },
   "engines": {
     "node": "10.0.0",
     "npm": ">=6.0.0"
   },
-  "dependencies": {
-    "boom": "^7.3.0",
-    "hapi": "^18.1.0",
-    "joi": "^14.3.1",
-    "mongojs": "^2.6.0",
-    "node-uuid": "^1.4.8"
-  },
   "devDependencies": {
-    "babel-eslint": "^8.2.6",
-    "eslint": "^5.3.0",
-    "eslint-config-benoitarguel": "^0.1.0",
-    "eslint-plugin-react": "^7.10.0"
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.15.2",
+    "eslint-config-benoitarguel": "^0.2.2",
+    "eslint-plugin-react": "^7.12.4"
   }
 }

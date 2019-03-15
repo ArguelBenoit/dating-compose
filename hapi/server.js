@@ -1,26 +1,50 @@
 'use strict';
 
 const Hapi = require('hapi');
-const mongojs = require('mongojs');
+const Boom = require('boom');
+const mongoose = require('mongoose');
+const glob = require('glob');
+const path = require('path');
+const secret = require('./config');
 
-// Create a server with a host and port
 const server = new Hapi.Server();
 server.connection({
-    host: '0.0.0.0',
-    port: 8000
+  port: 8000,
+  host: '0.0.0.0',
+  routes: {
+    cors: true
+  }
 });
 
-//Connect to db
-server.app.db = mongojs('hapi', ['books']);
+server.register(require('hapi-auth-jwt'), err => {
+  // We are giving the strategy a name of 'jwt'
+  server.auth.strategy('jwt', 'jwt', 'required', {
+    key: secret,
+    verifyOptions: { algorithms: ['HS256'] }
+  });
 
-//Load plugins and start server
-server.register([
-    require('./routes/books')
-], err => {
+  // Look through the routes in
+  // all the subdirectories of API
+  // and create a new route for each
+  glob
+    .sync('api/**/routes/*.js', {
+      root: __dirname
+    })
+    .forEach(file => {
+      const route = require(path.join(__dirname, file));
+      server.route(route);
+    });
+});
+
+// Start the server
+server.start(err => {
+  if (err) {
+    throw err;
+  }
+  // Once started, connect to Mongo through Mongoose
+  mongoose.connect('mongodb://mongo:27017/hapi', {}, err => {
     if (err) {
       throw err;
     }
-    server.start(() => {
-      console.log('Server running at:', server.info.uri);
-    });
+  });
 });
