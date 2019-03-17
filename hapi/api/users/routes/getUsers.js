@@ -25,7 +25,7 @@ module.exports = {
     // The user must have a scope of `admin`
     auth: {
       strategy: 'jwt',
-      scope: ['admin']
+      scope: ['user']
     }
   }
 };

@@ -25,9 +25,12 @@ module.exports = {
     pre: [{ method: verifyUniqueUser }],
     handler: (req, res) => {
       let user = new User();
-      user.email = req.payload.email;
-      user.username = req.payload.username;
-      user.admin = false;
+        user.username = req.payload.username;
+        user.email = req.payload.email;
+        user.sexe = req.payload.sexe;
+        user.birthday = req.payload.birthday;
+        user.registration = Date(Date.now()).toString();
+        user.admin = false;
       hashPassword(req.payload.password, (err, hash) => {
         if (err) {
           throw Boom.badRequest(err);

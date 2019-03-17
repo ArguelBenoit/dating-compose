@@ -1,7 +1,5 @@
 'use strict';
 
-const Boom = require('boom');
-const User = require('../model/User');
 const authenticateUserSchema = require('../schemas/authenticateUser');
 const verifyCredentials = require('../util/userFunctions').verifyCredentials;
 const createToken = require('../util/token');

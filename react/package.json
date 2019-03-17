@@ -12,10 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "@zeit/next-less": "^0.3.0",
+    "axios": "^0.18.0",
     "less": "^3.8.1",
     "next": "^6.1.1",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "react-icons": "^3.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",

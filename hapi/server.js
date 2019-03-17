@@ -1,7 +1,6 @@
 'use strict';
 
 const Hapi = require('hapi');
-const Boom = require('boom');
 const mongoose = require('mongoose');
 const glob = require('glob');
 const path = require('path');
@@ -16,7 +15,7 @@ server.connection({
   }
 });
 
-server.register(require('hapi-auth-jwt'), err => {
+server.register(require('hapi-auth-jwt'), () => {
   // We are giving the strategy a name of 'jwt'
   server.auth.strategy('jwt', 'jwt', 'required', {
     key: secret,
