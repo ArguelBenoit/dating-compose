@@ -36,14 +36,10 @@ export default class extends React.Component {
       case 'email':
         this.setState({['placeholder-email']: 'Email (not showed)'});
         break;
-      // case 'birthday':
-          // var str = this.state.birthday
-          //   .replace(' ', '/')
-          //   .replace('.', '/')
-          //   .replace('-', '/');
-      //  replace - . ans space by /
-      //  break;
-      //  controled component
+      case 'birthday':
+        var str = this.state.birthday.replace(' ', '/').replace('.', '/').replace('-', '/');
+        this.setState({birthday: str});
+        break;
       default:
     }
   }
@@ -141,6 +137,7 @@ export default class extends React.Component {
             <input
               type="text"
               ref="birthday"
+              value={birthday}
               placeholder="Date of birth (dd/mm/yyyy)"
               onChange={e => this.changeValue(e, 'birthday')}
             />
