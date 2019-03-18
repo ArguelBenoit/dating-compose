@@ -19,7 +19,7 @@ export default class extends React.Component {
       email: null,
       password: null,
       showPassword: false,
-      ['placeholder-username']: 'Username',
+      ['placeholder-username']: 'Username (only alpha-numeric characters)',
       ['placeholder-email']: 'Email (not showed)'
     };
   }
@@ -28,7 +28,7 @@ export default class extends React.Component {
     this.setState({
       [name]: value
     });
-    this.toggleBorderError(name);
+    this.toggleBorderError(name, false);
     switch (name) {
       case 'username':
         this.setState({['placeholder-username']: 'Username'});
@@ -36,6 +36,14 @@ export default class extends React.Component {
       case 'email':
         this.setState({['placeholder-email']: 'Email (not showed)'});
         break;
+      // case 'birthday':
+          // var str = this.state.birthday
+          //   .replace(' ', '/')
+          //   .replace('.', '/')
+          //   .replace('-', '/');
+      //  replace - . ans space by /
+      //  break;
+      //  controled component
       default:
     }
   }
@@ -77,18 +85,16 @@ export default class extends React.Component {
       .then(res => console.log(res))
       .catch(err => {
         if (err.response.data.message) {
-          console.log(err.response);
           switch (err.response.data.message) {
             case 'Username taken':
               this.toggleBorderError('username', true);
               this.togglePlaceholderError('username');
               break;
             case 'Email taken':
-              this.toggleBorderError('email');
-              this.togglePlaceholderError('email', true);
+              this.toggleBorderError('email', true);
+              this.togglePlaceholderError('email');
               break;
             default:
-
           }
         }
         if (
