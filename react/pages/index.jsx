@@ -1,4 +1,3 @@
-import '../css/index.less';
 import React from 'react';
 import MyHead from '../components/head';
 import SideBar from '../components/sideBar';

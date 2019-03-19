@@ -15,8 +15,8 @@ export default class extends React.Component {
     this.state = {
       username: null,
       sexe: null,
-      birthday: null,
-      email: null,
+      birthday: '',
+      email: 'null',
       password: null,
       showPassword: false,
       ['placeholder-username']: 'Username (only alpha-numeric characters)',
@@ -37,7 +37,7 @@ export default class extends React.Component {
         this.setState({['placeholder-email']: 'Email (not showed)'});
         break;
       case 'birthday':
-        var str = this.state.birthday.replace(' ', '/').replace('.', '/').replace('-', '/');
+        var str = value.replace(' ', '/').replace('.', '/').replace('-', '/');
         this.setState({birthday: str});
         break;
       default:
@@ -48,12 +48,12 @@ export default class extends React.Component {
       ReactDOM
         .findDOMNode(this.refs[ref])
         .classList
-        .add('border-error');
+        .add('u-border-error');
     } else {
       ReactDOM
         .findDOMNode(this.refs[ref])
         .classList
-        .remove('border-error');
+        .remove('u-border-error');
     }
   }
   togglePlaceholderError(ref) {
@@ -104,7 +104,7 @@ export default class extends React.Component {
       });
   }
   render () {
-    const { showPassword } = this.state;
+    const { showPassword, birthday } = this.state;
     return <div className="subscribe">
       <h1>Subscribe</h1>
       <form onSubmit={this.handleSubmit}>

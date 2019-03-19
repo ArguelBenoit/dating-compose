@@ -1,9 +1,8 @@
-import '../css/index.less';
-import '../css/login.less';
 import React from 'react';
 import MyHead from '../components/head';
 import Login from '../components/login';
 import Subscribe from '../components/subscribe';
+import '../css/login.less';
 
 export default class extends React.Component {
   constructor (props) {

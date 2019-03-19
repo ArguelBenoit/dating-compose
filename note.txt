@@ -1,1 +1,2 @@
-https://github.com/auth0-blog/hapi-jwt-authentication
+
+- joi regex pour username space - et _ en plus
