@@ -5,6 +5,13 @@ import config from '../config.js';
 import axios from 'axios';
 import moment from 'moment';
 
+const placeholder = {
+  init : {
+    placeholderUsername: 'Username (only alpha-numeric characters)',
+    placeholderEmail: 'Email (not showed)'
+  }
+};
+
 export default class extends React.Component {
   constructor (props) {
     super(props);
@@ -13,14 +20,14 @@ export default class extends React.Component {
     this.toggleBorderError = this.toggleBorderError.bind(this);
     this.togglePlaceholderError = this.togglePlaceholderError.bind(this);
     this.state = {
-      username: null,
+      username: '',
       sexe: null,
       birthday: '',
-      email: 'null',
+      email: '',
       password: null,
       showPassword: false,
-      ['placeholder-username']: 'Username (only alpha-numeric characters)',
-      ['placeholder-email']: 'Email (not showed)'
+      placeholderUsername: placeholder.init.placeholderUsername,
+      placeholderEmail: placeholder.init.placeholderEmail
     };
   }
   changeValue(event, name) {
@@ -31,10 +38,10 @@ export default class extends React.Component {
     this.toggleBorderError(name, false);
     switch (name) {
       case 'username':
-        this.setState({['placeholder-username']: 'Username'});
+        this.setState({placeholderUsername: placeholder.init.placeholderUsername});
         break;
       case 'email':
-        this.setState({['placeholder-email']: 'Email (not showed)'});
+        this.setState({placeholderEmail: placeholder.init.placeholderEmail});
         break;
       case 'birthday':
         var str = value.replace(' ', '/').replace('.', '/').replace('-', '/');
@@ -56,12 +63,21 @@ export default class extends React.Component {
         .remove('u-border-error');
     }
   }
-  togglePlaceholderError(ref) {
-    this.setState({
-      [ref]: null,
-      ['placeholder-' + ref]: this.refs[ref].value + ' is already taken...'
-    });
-    this.refs[ref].value = null;
+  togglePlaceholderError(ref, userInput) {
+    this.setState({[ref]: ''});
+    switch (ref) {
+      case 'username':
+        this.setState({
+          placeholderUsername: userInput + ' is already taken...'
+        });
+        break;
+      case 'email':
+        this.setState({
+          placeholderEmail: userInput + ' is already taken...'
+        });
+        break;
+      default:
+    }
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -81,14 +97,15 @@ export default class extends React.Component {
       .then(res => console.log(res))
       .catch(err => {
         if (err.response.data.message) {
+          const { username, email } = this.state;
           switch (err.response.data.message) {
             case 'Username taken':
               this.toggleBorderError('username', true);
-              this.togglePlaceholderError('username');
+              this.togglePlaceholderError('username', username);
               break;
             case 'Email taken':
               this.toggleBorderError('email', true);
-              this.togglePlaceholderError('email');
+              this.togglePlaceholderError('email', email);
               break;
             default:
           }
@@ -104,20 +121,30 @@ export default class extends React.Component {
       });
   }
   render () {
-    const { showPassword, birthday } = this.state;
+    const {
+      showPassword,
+      birthday,
+      placeholderEmail,
+      placeholderUsername,
+      email,
+      username
+    } = this.state;
+
     return <div className="subscribe">
       <h1>Subscribe</h1>
       <form onSubmit={this.handleSubmit}>
         <input
           type="text"
           ref="username"
-          placeholder={this.state['placeholder-username']}
+          value={username}
+          placeholder={placeholderUsername}
           onChange={e => this.changeValue(e, 'username')}
         />
         <input
           type="email"
           ref="email"
-          placeholder={this.state['placeholder-email']}
+          value={email}
+          placeholder={placeholderEmail}
           onChange={e => this.changeValue(e, 'email')}
         />
         <div className="row">
