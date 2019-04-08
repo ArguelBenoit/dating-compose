@@ -8,6 +8,7 @@ const MyHead = props => {
   return <Head>
     <title>{title}</title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
+    <link rel="stylesheet" href="/_next/static/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet" />
   </Head>;

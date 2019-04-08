@@ -4,11 +4,13 @@ import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import config from '../config.js';
 import axios from 'axios';
 import moment from 'moment';
+import { setJwtCookieAndRedirect } from '../utils/jwtCookie';
+const regexPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
 
 const placeholder = {
   init : {
-    placeholderUsername: 'Username (only alpha-numeric characters)',
-    placeholderEmail: 'Email (not showed)'
+    placeholderUsername: 'Only alpha-numeric characters comma and space',
+    placeholderEmail: 'Your email will always be kept secret'
   }
 };
 
@@ -19,13 +21,15 @@ export default class extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleBorderError = this.toggleBorderError.bind(this);
     this.togglePlaceholderError = this.togglePlaceholderError.bind(this);
+    this.clearValueInput = this.clearValueInput.bind(this);
     this.state = {
       username: '',
       sexe: null,
       birthday: '',
       email: '',
-      password: null,
+      password: '',
       showPassword: false,
+      colorPassword: '#d40000', // red
       placeholderUsername: placeholder.init.placeholderUsername,
       placeholderEmail: placeholder.init.placeholderEmail
     };
@@ -47,6 +51,9 @@ export default class extends React.Component {
         var str = value.replace(' ', '/').replace('.', '/').replace('-', '/');
         this.setState({birthday: str});
         break;
+      case 'password':
+        this.setState({colorPassword: regexPassword.test(value) ? '#007c00' : '#d40000'});
+        break;
       default:
     }
   }
@@ -63,8 +70,11 @@ export default class extends React.Component {
         .remove('u-border-error');
     }
   }
-  togglePlaceholderError(ref, userInput) {
+  clearValueInput(ref) {
     this.setState({[ref]: ''});
+  }
+  togglePlaceholderError(ref) {
+    let userInput = this.state[ref];
     switch (ref) {
       case 'username':
         this.setState({
@@ -94,28 +104,34 @@ export default class extends React.Component {
     });
     axios
       .post(config.apiUrl + '/api/users', postObj)
-      .then(res => console.log(res))
+      .then(() => {
+        setJwtCookieAndRedirect(res.data.id_token, '/');
+      })
       .catch(err => {
-        if (err.response.data.message) {
-          const { username, email } = this.state;
+        if (err.response &&
+            err.response.data.message) {
           switch (err.response.data.message) {
             case 'Username taken':
               this.toggleBorderError('username', true);
-              this.togglePlaceholderError('username', username);
+              this.togglePlaceholderError('username');
+              this.clearValueInput('username');
               break;
             case 'Email taken':
               this.toggleBorderError('email', true);
-              this.togglePlaceholderError('email', email);
+              this.togglePlaceholderError('email');
+              this.clearValueInput('email');
               break;
             default:
           }
         }
         if (
+          err.response &&
           err.response.data.validation &&
           err.response.data.validation.keys
         ) {
           err.response.data.validation.keys.forEach(key => {
-            this.toggleBorderError(key, true);
+              this.toggleBorderError(key, true);
+              this.clearValueInput(key);
           });
         }
       });
@@ -127,19 +143,28 @@ export default class extends React.Component {
       placeholderEmail,
       placeholderUsername,
       email,
-      username
+      username,
+      password,
+      colorPassword
     } = this.state;
 
     return <div className="subscribe">
       <h1>Subscribe</h1>
       <form onSubmit={this.handleSubmit}>
+        <legend>
+          Username*
+        </legend>
         <input
           type="text"
           ref="username"
           value={username}
           placeholder={placeholderUsername}
+          alt="ton titre" title="ton titre"
           onChange={e => this.changeValue(e, 'username')}
         />
+        <legend>
+          Email*
+        </legend>
         <input
           type="email"
           ref="email"
@@ -149,32 +174,43 @@ export default class extends React.Component {
         />
         <div className="row">
           <div className="columns four">
+            <legend>
+              Sexe*
+            </legend>
             <select
               className="u-full-width"
               ref="sexe"
               onChange={e => this.changeValue(e, 'sexe')}
             >
-              <option value="">Sexe</option>
+              <option value="">--</option>
               <option value="Man">Man</option>
               <option value="Woman">Woman</option>
               <option value="Other">Other</option>
             </select>
           </div>
           <div className="columns eight">
+            <legend>
+              Birthday*
+            </legend>
             <input
               type="text"
               ref="birthday"
               value={birthday}
-              placeholder="Date of birth (dd/mm/yyyy)"
+              placeholder="dd/mm/yyyy"
               onChange={e => this.changeValue(e, 'birthday')}
             />
           </div>
         </div>
+        <legend>
+          Password*
+        </legend>
         <input
           type={showPassword ? 'text' : 'password'}
           ref="password"
-          placeholder="Password"
+          placeholder="Minimum eight characters, one capital, one number"
+          value={password}
           onChange={e => this.changeValue(e, 'password')}
+          style={{color: colorPassword}}
         />
         {!showPassword ?
           <FaEyeSlash
@@ -190,6 +226,7 @@ export default class extends React.Component {
           className="button-primary"
           type="submit"
           value="Submit"
+          style={{marginTop: 10}}
         />
       </form>
     </div>;

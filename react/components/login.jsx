@@ -4,6 +4,7 @@ import axios from 'axios';
 import config from '../config.js';
 import emailValidation from '../utils/emailValidation';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import { setJwtCookieAndRedirect } from '../utils/jwtCookie';
 
 const placeholder = {
   init : {
@@ -81,12 +82,15 @@ export default class extends React.Component {
     };
     axios
       .post(config.apiUrl + '/api/users/authenticate', postObj)
-      .then(res => console.log(res))
+      .then(res => {
+        setJwtCookieAndRedirect(res.data.id_token, '/');
+      })
       .catch(err => {
-        if (err.response.data.message === 'Incorrect username or email!') {
+        if (err.response && err.response.data.message === 'Incorrect username or email!') {
           this.globalErrorHandler();
         }
         if (
+          err.response &&
           err.response.data.validation &&
           err.response.data.validation.keys
         ) {
@@ -133,7 +137,11 @@ export default class extends React.Component {
               onClick={() => this.setState({showPassword: !showPassword})}
             />
           }
-        <input type="submit" value="Submit" className="button-primary" />
+        <input
+          type="submit"
+          value="Submit"
+          className="button-primary"
+        />
       </form>
     </div>;
   }

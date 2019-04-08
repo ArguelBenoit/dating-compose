@@ -3,7 +3,7 @@
   "description": "User interface of white dating web-site with react.js",
   "main": "index.js",
   "scripts": {
-    "dev": "npm i && next",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
     "launch": "npm i && next"

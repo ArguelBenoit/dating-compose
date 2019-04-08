@@ -15,24 +15,22 @@ services:
       - DATABASE_NAME=hapi
 
   hapi:
-    image: node:10
+    build: hapi
     working_dir: /app/hapi
     volumes:
       - ./hapi:/app/hapi
     ports:
       - 8000:8000
-    command: node server.js
     depends_on:
       - mongo
 
   react:
-    image: node:10
+    build: react
     working_dir: /app/react
     volumes:
       - ./react:/app/react
     ports:
       - 3000:3000
-    command: npm run dev
     depends_on:
     - hapi
 
