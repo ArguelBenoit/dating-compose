@@ -15,12 +15,14 @@ module.exports = {
             Styles: path.resolve(__dirname, 'src/styles/'),
             Components: path.resolve(__dirname, 'src/components/'),
             Images: path.resolve(__dirname, 'src/images/'),
-            Utils: path.resolve(__dirname, 'src/utils/'),
+            Utils: path.resolve(__dirname, 'src/utils/')
         }
     },
     devServer: {
         contentBase: './',
         publicPath: '/dist/',
+        // for docker env
+        host: '0.0.0.0',
         port: 3000,
         historyApiFallback: true
     },
@@ -33,12 +35,12 @@ module.exports = {
                     'babel-loader'
                 ]
             },
-            { 
+            {
                 test: /\.less$/,
-                use: [ 
+                use: [
                     'style-loader',
-                    'css-loader', 
-                    'less-loader',
+                    'css-loader',
+                    'less-loader'
                 ]
             },
             {
@@ -48,5 +50,5 @@ module.exports = {
                 ]
             }
         ]
-    },
+    }
 };

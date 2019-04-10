@@ -72,7 +72,7 @@ export default class extends React.Component {
     return <div
       ref="container"
       className="container-page"
-      style={{backgroundImage: `url('./dist${background}')`}}>
+      style={{backgroundImage: `url('${background}')`}}>
       <div className="container-container-form">
         <div {...propsContainerForm}>
           {mode === 'login' ?
