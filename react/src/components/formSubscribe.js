@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-import config from '../config.js';
 import axios from 'axios';
 import moment from 'moment';
-import { setJwtCookieAndRedirect } from '../utils/jwtCookie';
+import { setJwtCookieAndRedirect } from 'Utils/jwtCookie';
 const regexPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
+import config from '~/config.js';
 
 const placeholder = {
   init : {

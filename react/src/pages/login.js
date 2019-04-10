@@ -1,8 +1,8 @@
 import React from 'react';
-import MyHead from '../components/head';
-import Login from '../components/login';
-import Subscribe from '../components/subscribe';
-import '../css/login.less';
+import FormLogin from 'Components/formLogin';
+import FormSubscribe from 'Components/formSubscribe';
+import background from 'Images/dating.jpg';
+import 'Styles/login.less';
 
 export default class extends React.Component {
   constructor (props) {
@@ -72,13 +72,12 @@ export default class extends React.Component {
     return <div
       ref="container"
       className="container-page"
-      style={{backgroundImage: 'url("static/dating.jpg")'}}>
-      <MyHead title={'Dating ' + mode} />
+      style={{backgroundImage: `url('./dist${background}')`}}>
       <div className="container-container-form">
         <div {...propsContainerForm}>
           {mode === 'login' ?
-            <Login /> :
-            <Subscribe />
+            <FormLogin /> :
+            <FormSubscribe />
           }
           <a href="" onClick={e => this.switchMode(e)}>
             {'Switch to ' + ( mode === 'login' ? 'subscribe' : 'login')}

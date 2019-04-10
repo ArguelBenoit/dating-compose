@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import config from '../config.js';
-import emailValidation from '../utils/emailValidation';
+import config from '~/config.js';
+import emailValidation from 'Utils/emailValidation';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-import { setJwtCookieAndRedirect } from '../utils/jwtCookie';
+import { setJwtCookieAndRedirect } from 'Utils/jwtCookie';
 
 const placeholder = {
   init : {
