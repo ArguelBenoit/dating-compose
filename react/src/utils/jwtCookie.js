@@ -1,48 +1,56 @@
-// import Router from 'next/router';
+
 import axios from 'axios';
 import config from '~/config.js';
+import history from 'Utils/history';
+const jwtCookieName = 'datingJwt';
 
+let setJwtCookie = (jwt, route) => {
+  // document.cookie = `datjwt=${jwt}; Secure; HttpOnly;`;
+  document.cookie = `${jwtCookieName}=${jwt};`;
+  if (route) {
+    setTimeout(() => history.push(route), 100);
+  }
+};
 
-let setJwtCookieAndRedirect = (jwt, route) => {
-  // document.cookie = `datjwt=${jwt}; Secure; HttpOnly`;
-  document.cookie = `datjwt=${jwt};`;
-  document.cookie = 'test=123;';
-  if(route) {
-    // Router.push(route);
+let destroyJwtCookie = route => {
+  document.cookie = `${jwtCookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+  if (route) {
+    history.push(route);
   }
 };
 
 
-let destroyJwtCookieAndRedirect = route => {
-  document.cookie = 'datjwt=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-  if(route) {
-    // Router.push(route);
+let getJwtCookie = () => {
+  const name = `${jwtCookieName}=`;
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
   }
+  return '';
 };
 
 
-let getJwt = () => {
-  let jwt = document.cookies.get({
-    name: 'datjwt'
-  });
-  return jwt;
-};
-
-
-let validJwtCookieOrRedirect = route => {
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + getJwtCookie();
+let PromiseJwtCookieIsValid = new Promise((resolve, reject) => {
   axios
-    .get(config.apiUrl + '/api/ping', {'headers': { 'jwt': getJwt() }}).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-      // Router.push(route);
+    .get(config.apiUrl + '/api/ping').then(() => {
+      resolve();
+    }).catch(() => {
+      reject();
     });
-};
+});
 
 
 export {
-  setJwtCookieAndRedirect,
-  destroyJwtCookieAndRedirect,
-  validJwtCookieOrRedirect,
-  getJwt
+  setJwtCookie,
+  destroyJwtCookie,
+  PromiseJwtCookieIsValid,
+  getJwtCookie
 };

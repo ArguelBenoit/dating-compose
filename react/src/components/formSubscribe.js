@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import axios from 'axios';
 import moment from 'moment';
-import { setJwtCookieAndRedirect } from 'Utils/jwtCookie';
+import { setJwtCookie } from 'Utils/jwtCookie';
 const regexPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
 import config from '~/config.js';
 
@@ -104,8 +104,8 @@ export default class extends React.Component {
     });
     axios
       .post(config.apiUrl + '/api/users', postObj)
-      .then(() => {
-        setJwtCookieAndRedirect(res.data.id_token, '/');
+      .then(res => {
+        setJwtCookie(res.data.id_token, '/dashboard');
       })
       .catch(err => {
         if (err.response &&

@@ -4,7 +4,7 @@ import axios from 'axios';
 import config from '~/config.js';
 import emailValidation from 'Utils/emailValidation';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-import { setJwtCookieAndRedirect } from 'Utils/jwtCookie';
+import { setJwtCookie } from 'Utils/jwtCookie';
 
 const placeholder = {
   init : {
@@ -83,7 +83,7 @@ export default class extends React.Component {
     axios
       .post(config.apiUrl + '/api/users/authenticate', postObj)
       .then(res => {
-        setJwtCookieAndRedirect(res.data.id_token, '/');
+        setJwtCookie(res.data.id_token, '/dashboard');
       })
       .catch(err => {
         if (err.response && err.response.data.message === 'Incorrect username or email!') {
