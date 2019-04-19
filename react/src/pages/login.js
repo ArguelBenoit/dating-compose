@@ -3,8 +3,10 @@ import FormLogin from 'Components/formLogin';
 import FormSubscribe from 'Components/formSubscribe';
 import background from 'Images/dating.jpg';
 import 'Styles/login.less';
+import { destroyJwtCookie } from 'Utils/jwtCookie';
+import PropTypes from 'prop-types';
 
-export default class extends React.Component {
+class Login extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -18,6 +20,12 @@ export default class extends React.Component {
   }
   componentDidMount() {
     this.init();
+    destroyJwtCookie();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.path !== prevProps.path) {
+      destroyJwtCookie();
+    }
   }
   init() {
     this.setState({
@@ -72,18 +80,25 @@ export default class extends React.Component {
     return <div
       ref="container"
       className="container-page"
-      style={{backgroundImage: `url('${background}')`}}>
+      style={{backgroundImage: `url('${background}')`}}
+    >
       <div className="container-container-form">
         <div {...propsContainerForm}>
           {mode === 'login' ?
             <FormLogin /> :
-            <FormSubscribe />
-          }
-          <a href="" onClick={e => this.switchMode(e)}>
-            {'Switch to ' + ( mode === 'login' ? 'subscribe' : 'login')}
-          </a>
+              <FormSubscribe />
+            }
+            <a href="" onClick={e => this.switchMode(e)}>
+              {'Switch to ' + ( mode === 'login' ? 'subscribe' : 'login')}
+            </a>
         </div>
       </div>
     </div>;
   }
 }
+
+Login.propTypes = {
+  path: PropTypes.string
+};
+
+export default Login;

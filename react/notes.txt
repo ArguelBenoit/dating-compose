@@ -1,2 +1,2 @@
 - proptype
-- fichier request.js
+- fichier request.js si un requête échoue à cause du jwt rediriger sur '/'

@@ -1,6 +1,3 @@
-
-import axios from 'axios';
-import config from '~/config.js';
 import history from 'Utils/history';
 const jwtCookieName = 'datingJwt';
 
@@ -19,7 +16,6 @@ let destroyJwtCookie = route => {
   }
 };
 
-
 let getJwtCookie = () => {
   const name = `${jwtCookieName}=`;
   const decodedCookie = decodeURIComponent(document.cookie);
@@ -36,21 +32,8 @@ let getJwtCookie = () => {
   return '';
 };
 
-
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + getJwtCookie();
-let PromiseJwtCookieIsValid = new Promise((resolve, reject) => {
-  axios
-    .get(config.apiUrl + '/api/ping').then(() => {
-      resolve();
-    }).catch(() => {
-      reject();
-    });
-});
-
-
 export {
   setJwtCookie,
   destroyJwtCookie,
-  PromiseJwtCookieIsValid,
   getJwtCookie
 };
