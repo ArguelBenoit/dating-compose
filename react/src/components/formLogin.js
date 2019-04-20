@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+import request from 'Utils/request';
 import config from '~/config.js';
 import emailValidation from 'Utils/emailValidation';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
@@ -80,8 +80,7 @@ export default class extends React.Component {
       [emailValidation(login) ? 'email' : 'username']: login,
       password
     };
-    axios
-      .post(config.apiUrl + '/api/users/authenticate', postObj)
+    request('post', '/api/users/authenticate', postObj)
       .then(res => {
         setJwtCookie(res.data.id_token, '/dashboard');
       })

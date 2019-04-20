@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-import axios from 'axios';
+import request from 'Utils/request';
 import moment from 'moment';
 import { setJwtCookie } from 'Utils/jwtCookie';
 const regexPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
@@ -102,8 +102,7 @@ export default class extends React.Component {
     Object.keys(postObj).forEach( key => {
       this.toggleBorderError(key, false);
     });
-    axios
-      .post(config.apiUrl + '/api/users', postObj)
+    request('post', '/api/users', postObj)
       .then(res => {
         setJwtCookie(res.data.id_token, '/dashboard');
       })
